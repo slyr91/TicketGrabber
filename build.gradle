@@ -4,7 +4,7 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
-group 'daryl.main'
+group 'daryl.ticketgrabber.main'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -12,7 +12,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
-mainClassName = 'daryl.main.Main'
+mainClassName = 'daryl.ticketgrabber.main.Main'
 
 repositories {
  mavenCentral()
@@ -20,4 +20,8 @@ repositories {
 
 dependencies {
  testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+run {
+    dependsOn 'check'
 }

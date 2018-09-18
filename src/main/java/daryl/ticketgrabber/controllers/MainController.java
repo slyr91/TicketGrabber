@@ -1,4 +1,4 @@
-package daryl.controllers;
+package daryl.ticketgrabber.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;

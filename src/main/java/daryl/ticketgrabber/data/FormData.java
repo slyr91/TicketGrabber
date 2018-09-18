@@ -2,13 +2,10 @@
 Arouchian, Daryl
 9/11/2018
 */
-package daryl.data;
+package daryl.ticketgrabber.data;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -25,19 +22,23 @@ public class FormData {
         entries = new ArrayList<>();
     }
 
-    public FormData init() {
-        try (FileInputStream in = new FileInputStream(propsFile)) {
-          props.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public FormData init() throws IOException, InvalidFileExtensionException {
+        if(!propsFile.endsWith(".properties")) {
+            throw new InvalidFileExtensionException();
         }
 
-        int numOfEntries = props.size() - 3 / Integer.parseInt(props.getProperty("numFields"));
+        FileInputStream in = new FileInputStream(propsFile);
+        props.load(in);
+        in.close();
+
+
+        int numOfEntries = (props.size() - 3) / Integer.parseInt(props.getProperty("numFields"));
 
         for(int i = 0; i < numOfEntries; i++) {
             entries.add(EntryDataTVTickets.getBuilder().setNumberOfTickets(props.getProperty("numOfTickets" + i))
-            .setFirstName("firstName" + i).setLastName("lastName" + i).setPhoneNumber("phoneNum" + i).setEmail("email" + i)
-            .setHowDidYouFindUs("howDidYouFindUs" + i).build());
+            .setFirstName(props.getProperty("firstName" + i)).setLastName(props.getProperty("lastName" + i))
+                    .setPhoneNumber(props.getProperty("phoneNum" + i)).setEmail(props.getProperty("email" + i))
+            .setHowDidYouFindUs(props.getProperty("howDidYouFindUs" + i)).build());
         }
 
         return this;

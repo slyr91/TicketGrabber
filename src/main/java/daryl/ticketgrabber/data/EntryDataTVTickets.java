@@ -2,7 +2,7 @@
 Arouchian, Daryl
 9/11/2018
 */
-package daryl.data;
+package daryl.ticketgrabber.data;
 
 import java.util.ArrayList;
 import java.util.List;
